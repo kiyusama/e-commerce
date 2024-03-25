@@ -19,9 +19,7 @@
           <td><%= item.quantity %></td>
           <td><%= number_to_currency(item.quantity * item.product.price) %></td>
           <td>
-            <%= link_to '削除', cart_item_path(item),
-                        method: :delete,
-                        data: { confirm: '本当に削除しますか？' } %>
+            <%= link_to '削除', cart_item_path(item) , data: { turbo_method: :delete } %>
           </td>
         </tr>
       <% end %>
@@ -36,3 +34,5 @@
 <% else %>
   <p>カートに商品がありません。</p>
 <% end %>
+
+<%= link_to '買い物を続ける', products_path %>
