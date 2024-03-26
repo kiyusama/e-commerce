@@ -1,13 +1,17 @@
-<h1>Products</h1>
-<div class="products-list">
-  <% @products.each do |product| %>
-    <div class="product">
-      <h3><%= product.name %></h3>
-      <p><%= product.description %></p>
-      <p>Price: <%= number_to_currency(product.price) %></p>
-      <%= link_to "View", product_path(product) %>
-    </div>
-  <% end %>
+<div class="container">
+  <h1>Products</h1>
+  <div class="row">
+    <% @products.each do |product| %>
+      <div class="card" style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title"><%= product.name %></h5>
+          <p class="card-text"><%= product.description %></p>
+          <p class="card-text">Price: <%= number_to_currency(product.price) %></p>
+          <a href="<%= product_path(product) %>" class="btn btn-primary">View</a>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <%= link_to "View Cart", cart_path, class: "btn btn-secondary" %>
+  <%= link_to "ホームに戻る", root_path, class: "btn btn-secondary" %>
 </div>
-<%= link_to "View Cart", cart_path %>
-<%= link_to "ホームに戻る", root_path %>

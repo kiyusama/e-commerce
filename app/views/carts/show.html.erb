@@ -1,38 +1,40 @@
-<h1>ショッピングカート</h1>
+<div class="container">
+  <h1>ショッピングカート</h1>
 
-<% if @cart.cart_items.any? %>
-  <table>
-    <thead>
-      <tr>
-        <th>商品名</th>
-        <th>単価</th>
-        <th>数量</th>
-        <th>小計</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @cart.cart_items.each do |item| %>
+  <% if @cart.cart_items.any? %>
+    <table>
+      <thead>
         <tr>
-          <td><%= item.product.name %></td>
-          <td><%= number_to_currency(item.product.price) %></td>
-          <td><%= item.quantity %></td>
-          <td><%= number_to_currency(item.quantity * item.product.price) %></td>
-          <td>
-            <%= link_to '削除', cart_item_path(item) , data: { turbo_method: :delete } %>
-          </td>
+          <th>商品名</th>
+          <th>単価</th>
+          <th>数量</th>
+          <th>小計</th>
+          <th></th>
         </tr>
-      <% end %>
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+        <% @cart.cart_items.each do |item| %>
+          <tr>
+            <td><%= item.product.name %></td>
+            <td><%= number_to_currency(item.product.price) %></td>
+            <td><%= item.quantity %></td>
+            <td><%= number_to_currency(item.quantity * item.product.price) %></td>
+            <td>
+              <%= link_to '削除', cart_item_path(item) , data: { turbo_method: :delete } %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
 
-  <p>
-    <strong>合計金額:</strong>
-    <%= number_to_currency(@cart.cart_items.sum { |item| item.quantity * item.product.price }) %>
-  </p>
+    <p>
+      <strong>合計金額:</strong>
+      <%= number_to_currency(@cart.cart_items.sum { |item| item.quantity * item.product.price }) %>
+    </p>
 
-<% else %>
-  <p>カートに商品がありません。</p>
-<% end %>
+  <% else %>
+    <p>カートに商品がありません。</p>
+  <% end %>
 
-<%= link_to '買い物を続ける', products_path %>
+  <%= link_to '買い物を続ける', products_path %>
+</div>

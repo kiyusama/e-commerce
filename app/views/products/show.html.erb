@@ -1,11 +1,12 @@
+<div class="container">
+    <h1><%= @product.name %></h1>
+    <p><%= @product.description %></p>
+    <p>Price: <%= number_to_currency(@product.price) %></p>
 
-<h1><%= @product.name %></h1>
-<p><%= @product.description %></p>
-<p>Price: <%= number_to_currency(@product.price) %></p>
+    <%= button_to 'カートに追加', cart_items_path, method: :post, params: { product_id: @product.id } %>
 
-<%= button_to 'カートに追加', cart_items_path, method: :post, params: { product_id: @product.id } %>
-
-<%= link_to 'カートの中を見る', cart_path %>
+    <%= link_to 'カートの中を見る', cart_path %>
 
 
-<%= link_to 'Back', products_path %>
+    <%= link_to 'Back', products_path %>
+</div>
