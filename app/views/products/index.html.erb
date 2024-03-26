@@ -6,8 +6,8 @@
       <p><%= product.description %></p>
       <p>Price: <%= number_to_currency(product.price) %></p>
       <%= link_to "View", product_path(product) %>
-      <!-- 他に必要な情報を表示 -->
     </div>
   <% end %>
 </div>
 <%= link_to "View Cart", cart_path %>
+<%= link_to "ホームに戻る", root_path %>

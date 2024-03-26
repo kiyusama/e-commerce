@@ -1,5 +1,4 @@
 class CartsController < ApplicationController
-  before_action :authenticate_user!
 
   def show
     @cart = current_cart
@@ -13,6 +12,8 @@ class CartsController < ApplicationController
       return cart if cart
     end
 
+    #current_userはdeviseのメソッド
+    #create_cartはhas_one :cartで自動生成されるメソッド
     cart = current_user.cart || current_user.create_cart
     session[:cart_id] = cart.id
     cart
