@@ -21,16 +21,12 @@ class CartItemsController < ApplicationController
     end
 
     def destroy
-      @cart_item = CartItem.find(params[:id])
+      @cart_item = current_cart.cart_items.find(params[:id])
       @cart_item.destroy
       redirect_to cart_path, notice: "カートから商品を削除しました"
     end
 
     private
-
-    def current_cart
-      Cart.find(session[:cart_id])
-    end
 
     def cart_item_params
       params.permit(:product_id, :quantity)
