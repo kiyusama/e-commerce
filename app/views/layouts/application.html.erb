@@ -32,15 +32,21 @@
               <li class="nav-item">
                 <a class="nav-link" href="<%= abouts_path %>">About</a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="<%= cart_path %>">Cart</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Pricing</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link disabled">Disabled</a>
-              </li>
+              <% if user_signed_in? %>
+                <li class="nav-item">
+                  <a class="nav-link" href="<%= cart_path %>">Cart</a>
+                </li>
+                <li class="nav-item">
+                  <%= link_to "LogOut", destroy_user_session_path, method: :delete, class: "nav-link", data: { turbo_method: :delete } %>
+                </li>
+              <% else %>
+                <li class="nav-item">
+                  <a class="nav-link" href="<%= new_user_session_path %>">LogIn</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="<%= new_user_registration_path %>">SignUp</a>
+                </li>
+              <% end %>
             </ul>
           </div>
         </div>
