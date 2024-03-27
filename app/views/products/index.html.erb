@@ -1,14 +1,17 @@
-
-  <h1>Products</h1>
-  <div class="row">
-    <% @products.each do |product| %>
-      <div class="card" style="width: 18rem;">
-        <div class="card-body">
-          <h5 class="card-title"><%= product.name %></h5>
-          <p class="card-text"><%= product.description %></p>
-          <p class="card-text">Price: <%= number_to_currency(product.price) %></p>
-          <a href="<%= product_path(product) %>" class="btn btn-primary">View</a>
-        </div>
+<%= form_with(url: products_path, method: :get, local: true, class: "d-flex") do |form| %>
+  <%= form.search_field :query, placeholder: "Search products", aria_label: "Search", class: "form-control me-2" %>
+  <%= form.submit "Search", class: "btn btn-outline-success" %>
+<% end %>
+<h1>Products</h1>
+<div class="row">
+  <% @products.each do |product| %>
+    <div class="card" style="width: 18rem;">
+      <div class="card-body">
+        <h5 class="card-title"><%= product.name %></h5>
+        <p class="card-text"><%= product.description %></p>
+        <p class="card-text">Price: <%= number_to_currency(product.price) %></p>
+        <a href="<%= product_path(product) %>" class="btn btn-primary">View</a>
       </div>
-    <% end %>
-  </div>
+    </div>
+  <% end %>
+</div>
