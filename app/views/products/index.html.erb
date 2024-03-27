@@ -1,4 +1,4 @@
-<div class="container">
+
   <h1>Products</h1>
   <div class="row">
     <% @products.each do |product| %>
@@ -12,6 +12,3 @@
       </div>
     <% end %>
   </div>
-  <%= link_to "View Cart", cart_path, class: "btn btn-secondary" %>
-  <%= link_to "ホームに戻る", root_path, class: "btn btn-secondary" %>
-</div>
