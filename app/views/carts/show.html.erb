@@ -1,5 +1,6 @@
 <h1>ショッピングカート</h1>
 
+<% if user_signed_in? %>
   <% if @cart.cart_items.any? %>
     <table class="table table-striped">
       <thead>
@@ -19,8 +20,9 @@
             <td><%= item.quantity %></td>
             <td><%= number_to_currency(item.quantity * item.product.price) %></td>
             <td>
-              <%= link_to '削除', cart_item_path(item), method: :delete, class: "btn btn-danger", data: { confirm: '本当に削除しますか？' } %>
+              <%= link_to '削除', cart_item_path(item), data: { turbo_method: :delete, confirm: '本当に削除しますか？' }, class: "btn btn-danger" %>
             </td>
+            
           </tr>
         <% end %>
       </tbody>
@@ -30,8 +32,42 @@
       <strong>合計金額:</strong>
       <%= number_to_currency(@cart.cart_items.sum { |item| item.quantity * item.product.price }) %>
     </div>
-
-    <%= link_to '買い物を続ける', products_path, class: "btn btn-primary" %>
   <% else %>
     <p>カートに商品がありません。</p>
   <% end %>
+<% else %>
+
+  <%# セッションベースのカートアイテム表示 %>
+  <% if session[:cart] && session[:cart]['items'].any? %>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>商品名</th>
+          <th>単価</th>
+          <th>数量</th>
+          <th>小計</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% session[:cart]['items'].each do |item| %>
+          <% product = Product.find_by(id: item['product_id']) %>
+          <% if product %>
+            <tr>
+              <td><%= product.name %></td>
+              <td><%= number_to_currency(product.price) %></td>
+              <td><%= item['quantity'] %></td>
+              <td><%= number_to_currency(item['quantity'] * product.price) %></td>
+            </tr>
+          <% end %>
+        <% end %>
+      </tbody>
+    </table>
+
+    <div class="text-end">
+      <strong>合計金額:</strong>
+      <%= number_to_currency(session[:cart]['items'].sum { |item| Product.find_by(id: item['product_id']).price * item['quantity'] }) %>
+    </div>
+  <% else %>
+    <p>カートに商品がありません。</p>
+  <% end %>
+<% end %>
