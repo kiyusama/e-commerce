@@ -37,6 +37,9 @@
               </li>
               <% if user_signed_in? %>
                 <li class="nav-item">
+                  <a class="nav-link" href="<%= orders_path %>">Order</a>
+                </li>
+                <li class="nav-item">
                   <%= link_to "Logout", destroy_user_session_path, method: :delete, class: "nav-link", data: { turbo_method: :delete } %>
                 </li>
               <% else %>

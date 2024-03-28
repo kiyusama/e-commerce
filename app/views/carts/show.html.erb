@@ -71,3 +71,7 @@
     <p>カートに商品がありません。</p>
   <% end %>
 <% end %>
+
+<%= form_with url: orders_path, method: :post do |form| %>
+  <%= form.submit '注文する', class: "btn btn-primary" %>
+<% end %>

@@ -1,7 +1,5 @@
 class CartItemsController < ApplicationController
   def create
-    Rails.logger.debug params.inspect
-
     if user_signed_in?
       # ログインしている場合は、ユーザーのカートにアイテムを追加
       @cart = current_user.cart || current_user.create_cart
